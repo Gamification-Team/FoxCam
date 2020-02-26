@@ -20,8 +20,8 @@ public class ButtonControl : MonoBehaviour
     private GameObject button2;
     private GameObject button3;
     private GameObject menuSpot;
-    private float xPos;
     private float xStart;
+    private float xEnd;
 
     void Start()
     {
@@ -31,17 +31,22 @@ public class ButtonControl : MonoBehaviour
     	button2 = GameObject.Find("B2");
    		button3 = GameObject.Find("B3");
     	menuSpot = GameObject.Find("MenuSpot");
-    	xPos = menuSpot.transform.position.x;
+    	xEnd = menuSpot.transform.position.x;
     	xStart = startSpot.transform.position.x;
     }
 
-    public void Slide()
+    public void MenuOpen()
+    {
+    	StartCoroutine("Slide");
+    }
+
+    IEnumerator Slide()
     {
     	if (isVisible == false)
     	{
-    		button1.transform.position = new Vector3(xPos, button1.transform.position.y, button1.transform.position.z);
-    		button2.transform.position = new Vector3(xPos, button2.transform.position.y, button2.transform.position.z);
-    		button3.transform.position = new Vector3(xPos, button3.transform.position.y, button3.transform.position.z);
+    		button1.transform.position = new Vector3(xEnd, button1.transform.position.y, button1.transform.position.z);
+    		button2.transform.position = new Vector3(xEnd, button2.transform.position.y, button2.transform.position.z);
+    		button3.transform.position = new Vector3(xEnd, button3.transform.position.y, button3.transform.position.z);
     		isVisible = true;
     	}
     	else
@@ -51,5 +56,6 @@ public class ButtonControl : MonoBehaviour
     		button3.transform.position = new Vector3(xStart, button3.transform.position.y, button3.transform.position.z);
     		isVisible = false;
     	}
+    	yield return null;
     }
 }
